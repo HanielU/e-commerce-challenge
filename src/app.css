@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  @apply overflow-x-hidden;
+}
+
+#app {
+  @apply relative h-full min-h-screen w-full bg-base-300;
+}
