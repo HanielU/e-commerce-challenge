@@ -28,10 +28,8 @@
     const [, imgName] = product.imgPath.split("/");
 
     if ($productsImgStore.has(imgName)) {
-      const { encoded, type } = $productsImgStore.get(imgName)!;
-      const data = b64toBlob(encoded, type);
-      img.src = URL.createObjectURL(data);
-
+      const imgBlob = $productsImgStore.get(imgName)!;
+      img.src = URL.createObjectURL(imgBlob);
       return;
     }
 
@@ -41,11 +39,11 @@
 
     if (!encoded || !type || !imgId) return;
 
-    $productsImgStore.set(imgId, { encoded, type });
-    $productsImgStore = $productsImgStore; // trigger reactivity
+    const imgBlob = b64toBlob(encoded, type);
+    img.src = URL.createObjectURL(imgBlob);
 
-    const data = b64toBlob(encoded, type);
-    img.src = URL.createObjectURL(data);
+    $productsImgStore.set(imgId, imgBlob);
+    $productsImgStore = $productsImgStore; // trigger reactivity
   }
 </script>
 
