@@ -45,6 +45,7 @@
     "@trpc/server": "^9.27.2",
     "animejs": "^3.2.1",
     "clsx": "^1.2.1",
+    "compressorjs": "^1.1.1",
     "dotenv": "^16.0.2",
     "localforage": "^1.10.0",
     "lucia-sveltekit": "^0.8.3",

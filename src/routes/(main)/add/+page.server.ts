@@ -10,7 +10,7 @@ export const actions: Actions = {
       "p-name",
       "p-price",
       "p-qty",
-      "p-info",
+      "p-desc",
       "image"
     ].map(v => form.get(v)) as [string, string, string, string, File];
 

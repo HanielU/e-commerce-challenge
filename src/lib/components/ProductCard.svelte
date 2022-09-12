@@ -7,23 +7,15 @@
   import { productsImgStore } from "$lib/stores/user";
   import { trpcClient } from "$trpc/client";
 
-  export let product: Omit<Product, "userId" | "averageRating"> = {
-    price: 200,
-    id: "gahdam",
-    name: "",
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti, at? Dicta in obcaecati quis ab?",
-    imgPath: "/arch.jpg",
-    quantity: 5
-  };
+  export let product: Omit<Product, "userId" | "averageRating">;
 
   let img: HTMLImageElement;
 
-  $: main($productsImgStore).catch((err: Error) => console.log(err.message));
+  // wait for localforage-store to initialise
+  $: main($productsImgStore, img).catch((err: Error) => console.log(err.message));
 
-  async function main(prodsImgStore: ImageStore | undefined) {
-    console.log({ prodsImgStore });
-    if (prodsImgStore === undefined || !$productsImgStore) return;
+  async function main(prodsImgStore: ImageStore | undefined, img: HTMLImageElement) {
+    if (prodsImgStore === undefined || !$productsImgStore || !img) return;
 
     const [, imgName] = product.imgPath.split("/");
 
@@ -33,13 +25,13 @@
       return;
     }
 
-    const [encoded, type, imgId] = await trpcClient().query("products.getImg", {
+    const [base64str, imgType, imgId] = await trpcClient().query("products.getImg", {
       path: product.imgPath
     });
 
-    if (!encoded || !type || !imgId) return;
+    if (!base64str || !imgType || !imgId) return;
 
-    const imgBlob = b64toBlob(encoded, type);
+    const imgBlob = b64toBlob(base64str, imgType);
     img.src = URL.createObjectURL(imgBlob);
 
     $productsImgStore.set(imgId, imgBlob);
@@ -51,7 +43,11 @@
   class="card-compact card mx-auto mb-4 w-full min-w-[200px] max-w-96 rounded-xl bg-base-100 shadow-xl sm:m-0"
 >
   <figure class="px-4 pt-4">
-    <img bind:this={img} alt="Shoes" class="rounded-md" />
+    <img
+      bind:this={img}
+      alt="Shoes"
+      class="max-h-56 rounded-md object-fill object-center"
+    />
   </figure>
 
   <div class="card-body">

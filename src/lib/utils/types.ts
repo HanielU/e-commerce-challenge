@@ -11,5 +11,4 @@ export interface Cookie {
   options: CookieOptions;
 }
 
-// export type ImageStore = Map<string, { encoded: string; type: string }>;
 export type ImageStore = Map<string, Blob>;

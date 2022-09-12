@@ -8,7 +8,6 @@ export default createRouter()
   .query("getAll", {
     async resolve() {
       const allProducts = await prismaClient.product.findMany({});
-
       return allProducts;
     },
   })
@@ -17,10 +16,10 @@ export default createRouter()
       path: z.string(),
     }),
     async resolve({ input }) {
-      const [bucket, img] = input.path.split("/");
+      const [bucket, imgId] = input.path.split("/");
       const { data, error } = await supabase.storage
         .from(bucket)
-        .download(img);
+        .download(imgId);
 
       if (error) throw error;
 
@@ -28,7 +27,7 @@ export default createRouter()
       return [
         Buffer.from(encoded).toString("base64"),
         data?.type,
-        img,
+        imgId,
       ];
     },
   })

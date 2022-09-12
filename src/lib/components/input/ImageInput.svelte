@@ -1,12 +1,13 @@
 <script lang="ts">
   import clsx from "clsx";
 
-  export let name = "";
+  export let name = ""; // for html form names
   export let image: File;
   let imgUrl = "";
 
   const addFileToVar = (e: Event) => {
     image = (<HTMLInputElement>e.target).files?.[0]!;
+    if (!image.type.startsWith("image/")) return (image = undefined as unknown as File); // makes sure only images are selected
     image && (imgUrl = URL.createObjectURL(image));
   };
 </script>
@@ -28,7 +29,7 @@
     {image ? "Click to update Image" : "Click To Upload Image"}
   </h1>
 
-  {#if !!image}
+  {#if image}
     <div class="relative h-full w-full">
       <img src={imgUrl} alt="" class="h-full w-full object-cover object-center" />
     </div>

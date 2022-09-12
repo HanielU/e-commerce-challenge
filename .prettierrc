@@ -4,7 +4,7 @@
   "arrowParens": "avoid",
   "singleQuote": false,
   "trailingComma": "none",
-  "printWidth": 100,
+  "printWidth": 90,
   "pluginSearchDirs": ["."],
   "overrides": [
     {
