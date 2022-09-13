@@ -23,12 +23,12 @@ export default createRouter()
         .from(bucket)
         .download(imgId);
 
-      if (error) throw error;
+      if (error || !data) throw error; // if no data is returned, that means there's an error
 
       const encoded = (await data?.arrayBuffer()) as ArrayBuffer;
       return [
         Buffer.from(encoded).toString("base64"),
-        data?.type,
+        data.type,
         imgId
       ];
     }
