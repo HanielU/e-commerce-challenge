@@ -8,5 +8,5 @@ const url = browser ? "/trpc" : "http://localhost:3000/trpc";
 export const trpcClient = (loadFetch?: LoadEvent["fetch"]) =>
   trpc.createTRPCClient<AppRouter>({
     url: loadFetch ? "/trpc" : url,
-    ...(loadFetch && { fetch: loadFetch as typeof fetch }),
+    ...(loadFetch && { fetch: loadFetch as typeof fetch })
   });

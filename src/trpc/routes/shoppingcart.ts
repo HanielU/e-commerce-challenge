@@ -4,11 +4,11 @@ import { z } from "zod";
 
 export default createRouter().query("count", {
   input: z.object({
-    email: z.string().email(),
+    email: z.string().email()
   }),
   async resolve({ input }) {
     const user = await prismaClient.user.findUnique({
-      where: { email: input.email },
+      where: { email: input.email }
     });
 
     // count the number of products where the s
@@ -16,11 +16,11 @@ export default createRouter().query("count", {
       where: {
         inCartOf: {
           every: {
-            id: user?.id,
-          },
-        },
-      },
+            id: user?.id
+          }
+        }
+      }
     });
     return itemsInCart;
-  },
+  }
 });

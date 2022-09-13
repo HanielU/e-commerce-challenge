@@ -7,15 +7,15 @@ import { z } from "zod";
 export default createRouter()
   .query("all", {
     async resolve() {
-      return await prismaClient.product.findMany().catch((e) => {
+      return await prismaClient.product.findMany().catch(e => {
         console.log(e.message);
         return [];
       });
-    },
+    }
   })
   .query("img", {
     input: z.object({
-      imgPath: z.string(),
+      imgPath: z.string()
     }),
     async resolve({ input }) {
       const [bucket, imgId] = input.imgPath.split("/");
@@ -29,25 +29,25 @@ export default createRouter()
       return [
         Buffer.from(encoded).toString("base64"),
         data?.type,
-        imgId,
+        imgId
       ];
-    },
+    }
   })
   .query("category", {
     input: z.object({
-      category: z.string(),
+      category: z.string()
     }),
     async resolve({ input }) {
       const productsInCategory = await prismaClient.product.findMany({
         where: {
           categories: {
             some: {
-              name: input.category,
-            },
-          },
-        },
+              name: input.category
+            }
+          }
+        }
       });
 
       return productsInCategory;
-    },
+    }
   });
