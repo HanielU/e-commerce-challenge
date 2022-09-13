@@ -1,5 +1,5 @@
 import { prismaClient } from "$lib/db";
-import { createRouter } from "$trpc/utils";
+import { createRouter } from "$trpc/app-router";
 import { z } from "zod";
 
 export default createRouter().query("count", {

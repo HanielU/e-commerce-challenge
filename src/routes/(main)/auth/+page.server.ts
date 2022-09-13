@@ -1,13 +1,13 @@
 import type { Actions } from "./$types";
 import { auth } from "$lib/lucia";
 import { error } from "@sveltejs/kit";
-import { parseLuciaCookies } from "$lib/utils";
+import { parseLuciaCookies } from "$lib/lucia";
 
 export const actions: Actions = {
   login: async ({ request, cookies }) => {
     const data = await request.formData();
-    const [email, password] = ([data.get("email"), data.get("password")] as string[]).map(value =>
-      value.trim()
+    const [email, password] = ([data.get("email"), data.get("password")] as string[]).map(
+      value => value.trim()
     );
 
     if (!email || !password) return;

@@ -1,17 +1,18 @@
 <script lang="ts">
   import CartAddIcon from "$lib/components/icons/CartAddIcon.svelte";
-  import type { ImageStore } from "$lib/utils/types";
+  import clsx from "clsx";
+  import type { ImageStore } from "$lib/types";
   import type { Product } from "@prisma/client";
-  import { addToCart } from "$lib/utils/cart";
   import { b64toBlob } from "$lib/utils";
-  import { productsImgStore } from "$lib/stores/user";
+  import { localCart, productsImgStore } from "$lib/stores/user";
   import { trpcClient } from "$trpc/client";
 
   export let product: Omit<Product, "userId" | "averageRating">;
 
   let img: HTMLImageElement;
+  let hasVerticalAspect = false; // used to indicate if an image has a vertical aspect ratio
 
-  // wait for localforage-store to initialise
+  // wait for localforage-store to initialise & img element to exist
   $: main($productsImgStore, img).catch((err: Error) => console.log(err.message));
 
   async function main(prodsImgStore: ImageStore | undefined, img: HTMLImageElement) {
@@ -19,51 +20,68 @@
 
     const [, imgName] = product.imgPath.split("/");
 
+    img.onload = () => {
+      const x = img.naturalWidth;
+      const y = img.naturalHeight;
+      if (y > x) hasVerticalAspect = true;
+    };
+
     if ($productsImgStore.has(imgName)) {
-      const imgBlob = $productsImgStore.get(imgName)!;
+      const imgBlob = $productsImgStore.get(imgName) as Blob;
       img.src = URL.createObjectURL(imgBlob);
       return;
     }
 
-    const [base64str, imgType, imgId] = await trpcClient().query("products.getImg", {
-      path: product.imgPath
-    });
+    try {
+      const [base64str, imgType, imgId] = await trpcClient().query("products.img", {
+        imgPath: product.imgPath
+      });
 
-    if (!base64str || !imgType || !imgId) return;
+      if (!base64str || !imgType || !imgId) return;
 
-    const imgBlob = b64toBlob(base64str, imgType);
-    img.src = URL.createObjectURL(imgBlob);
+      const imgBlob = b64toBlob(base64str, imgType);
+      img.src = URL.createObjectURL(imgBlob);
 
-    $productsImgStore.set(imgId, imgBlob);
-    $productsImgStore = $productsImgStore; // trigger reactivity
+      $productsImgStore.set(imgId, imgBlob); // update Map
+      $productsImgStore = $productsImgStore; // trigger reactivity
+    } catch (e) {
+      const error = e as Error;
+      console.log(error.name, error.message);
+    }
   }
 </script>
 
 <div
-  class="card-compact card mx-auto mb-4 w-full min-w-[200px] max-w-96 rounded-xl bg-base-100 shadow-xl sm:m-0"
+  class={clsx(
+    "card-compact card mx-auto mb-4 w-full min-w-[200px] max-w-96 rounded-xl bg-base-100 shadow-xl sm:m-0",
+    { "card-side": hasVerticalAspect }
+  )}
 >
-  <figure class="px-4 pt-4">
+  <figure>
     <img
       bind:this={img}
       alt="Shoes"
-      class="max-h-56 rounded-md object-fill object-center"
+      class={clsx("max-h-64 object-fill object-center", { "w-40": hasVerticalAspect })}
     />
   </figure>
 
   <div class="card-body">
-    <h2 class="card-title">${product?.price}</h2>
+    <!-- Product price -->
+    <h2 class="card-title">${product.price}</h2>
 
+    <!-- Product Description -->
     <p class="mb-2 text-base-content/75">
-      {product?.description}
+      {product.description}
     </p>
 
+    <!-- card actions -->
     <div class="card-actions justify-start">
       <button class="btn btn-primary flex-1 rounded-md">Buy Now</button>
 
       <button
         class="btn tooltip tooltip-left rounded-md bg-neutral text-white"
         data-tip="Add to cart"
-        on:click={() => addToCart(product?.id)}
+        on:click={() => localCart.add(product.id)}
       >
         <CartAddIcon class="fill-neutral-content text-xl" />
       </button>

@@ -4,8 +4,8 @@
   import clsx from "clsx";
   import { getSession, signOut } from "lucia-sveltekit/client";
   import { goto, invalidateAll } from "$app/navigation";
+  import { localCart } from "$lib/stores/user";
 
-  export let cartItemsCount = 0;
   const lucia = getSession();
   let loading = false;
 
@@ -20,7 +20,7 @@
   };
 </script>
 
-<div class="sticky top-0 z-50 bg-base-300">
+<div class="sticky top-0 z-50 bg-base-200">
   <div class="navbar mx-auto max-w-screen-lg">
     <div class="navbar-start">
       <div class="dropdown">
@@ -77,14 +77,14 @@
 
       <button
         class="btn tooltip tooltip-left btn-ghost btn-circle tooltip-primary"
-        data-tip="{cartItemsCount} {cartItemsCount == 1 ? 'item' : 'items'} in cart"
+        data-tip="{$localCart} {$localCart.length == 1 ? 'item' : 'items'} in cart"
         on:click={() => !!$lucia && goto("/cart")}
       >
         <div class="indicator">
           <CartIcon class="h-5 w-5 fill-base-content" />
 
           <span class="badge indicator-item badge-primary badge-xs">
-            {cartItemsCount}
+            {$localCart.length}
           </span>
         </div>
       </button>

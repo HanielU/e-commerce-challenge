@@ -1,6 +1,6 @@
 import cart from "./routes/shoppingcart";
 import products from "./routes/products";
-import { createRouter } from "./utils";
+import { createRouter } from "./app-router";
 
 export const appRouter = createRouter()
   .merge("cart.", cart)

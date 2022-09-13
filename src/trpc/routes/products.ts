@@ -1,22 +1,24 @@
+import { Buffer } from "buffer";
+import { createRouter } from "$trpc/app-router";
 import { prismaClient } from "$lib/db";
 import { supabase } from "$lib/supaclient";
-import { createRouter } from "$trpc/utils";
 import { z } from "zod";
-import { Buffer } from "buffer";
 
 export default createRouter()
-  .query("getAll", {
+  .query("all", {
     async resolve() {
-      const allProducts = await prismaClient.product.findMany({});
-      return allProducts;
+      return await prismaClient.product.findMany().catch((e) => {
+        console.log(e.message);
+        return [];
+      });
     },
   })
-  .query("getImg", {
+  .query("img", {
     input: z.object({
-      path: z.string(),
+      imgPath: z.string(),
     }),
     async resolve({ input }) {
-      const [bucket, imgId] = input.path.split("/");
+      const [bucket, imgId] = input.imgPath.split("/");
       const { data, error } = await supabase.storage
         .from(bucket)
         .download(imgId);
@@ -31,7 +33,7 @@ export default createRouter()
       ];
     },
   })
-  .query("getCategory", {
+  .query("category", {
     input: z.object({
       category: z.string(),
     }),
@@ -45,6 +47,7 @@ export default createRouter()
           },
         },
       });
+
       return productsInCategory;
     },
   });

@@ -12,10 +12,10 @@ export function localStorageStore<T>(
     set: setStore,
     update: updateStore,
     subscribe
-  } = writable(initial, _ => {
+  } = writable(initial, set => {
     if (!client) return;
 
-    const external = start?.(_) as Unsubscriber;
+    const external = start?.(set) as Unsubscriber;
 
     getAndSetFromLocalStorage();
 

@@ -11,11 +11,12 @@
   export { className as class, required, value, placeholder, name, numOnly };
 
   // checks if the input field should be numbers only
-  const enterNumsOnly = (input: HTMLInputElement) => (numOnly ? numbersOnly(input) : void {});
+  const enterNumsOnly = (input: HTMLInputElement) =>
+    numOnly ? numbersOnly(input) : void {};
 </script>
 
 <input
-  class="input input-bordered w-full {className}"
+  class="input w-full {className}"
   {name}
   {placeholder}
   {required}

@@ -12,14 +12,14 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^1.0.0-next.72",
-    "@sveltejs/kit": "^1.0.0-next.480",
+    "@sveltejs/adapter-auto": "^1.0.0-next.73",
+    "@sveltejs/kit": "^1.0.0-next.481",
     "@types/animejs": "^3.1.5",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
-    "autoprefixer": "^10.4.8",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "autoprefixer": "^10.4.9",
     "daisyui": "^2.27.0",
-    "eslint": "^8.23.0",
+    "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "postcss": "^8.4.16",
@@ -50,6 +50,6 @@
     "localforage": "^1.10.0",
     "lucia-sveltekit": "^0.8.3",
     "trpc-sveltekit": "^2.3.4",
-    "zod": "^3.19.0"
+    "zod": "^3.19.1"
   }
 }

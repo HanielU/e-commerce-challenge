@@ -21,8 +21,8 @@
 
     new Compressor(image, {
       quality: 0.6,
-      maxHeight: 1000,
-      maxWidth: 1000,
+      maxHeight: 1920,
+      maxWidth: 1080,
       async success(compressedImg) {
         data.append("image", compressedImg);
         $lucia && data.append("email", $lucia.user.email);
@@ -51,25 +51,37 @@
   <title>Add Products | Belibe</title>
 </svelte:head>
 
+<!-- svelte-ignore a11y-label-has-associated-control -->
 <div class="h-full w-full p-6">
-  <form class="form-control gap-4" on:submit|preventDefault={handleSubmit}>
-    <TextInput placeholder="Product Name" name="p-name" required />
+  <form class="form-control" on:submit|preventDefault={handleSubmit}>
+    <label class="label">
+      <span class="label-text font-semibold">Product Name</span>
+    </label>
+    <TextInput placeholder="Product Name" class="mb-4" name="p-name" required />
 
-    <div class="flex items-center gap-1">
-      <!-- Currency Select -->
-      <div class="input input-bordered flex items-center">NGN</div>
+    <label class="label">
+      <span class="label-text font-semibold">Product Price</span>
+    </label>
+    <label class="input-group mb-4">
+      <span>Ngn</span>
+      <TextInput placeholder="0" name="p-price" numOnly required />
+    </label>
 
-      <TextInput placeholder="Product Price" name="p-price" numOnly required />
-    </div>
+    <label class="label">
+      <span class="label-text font-semibold">Product Quantity</span>
+    </label>
+    <TextInput placeholder="0" class="mb-4" name="p-qty" numOnly required />
 
-    <TextInput placeholder="Quantity" name="p-qty" numOnly required />
+    <label class="label">
+      <span class="label-text font-semibold">Product Description</span>
+    </label>
+    <Textarea placeholder="Product Description" class="mb-4" name="p-desc" />
 
-    <Textarea placeholder="Product Description" name="p-desc" />
+    <label class="label">
+      <span class="label-text font-semibold">Product Image</span>
+    </label>
+    <ImageInput class="mb-4" bind:image />
 
-    <ImageInput bind:image />
-
-    <button class={clsx("btn btn-primary btn-block rounded-md", { loading })}>
-      Add Product
-    </button>
+    <button class={clsx("btn btn-primary btn-block", { loading })}> Add Product </button>
   </form>
 </div>
