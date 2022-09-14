@@ -33,7 +33,7 @@
     }
 
     try {
-      const [base64str, imgType, imgId] = await trpcClient().query("products.img", {
+      const [base64str, imgType, imgId] = await trpcClient().products.img.query({
         imgPath: product.imgPath
       });
 
@@ -52,16 +52,17 @@
 </script>
 
 <div
-  class={clsx(
-    "card-compact card mx-auto mb-4 w-full min-w-[200px] max-w-96 rounded-xl bg-base-100 shadow-xl sm:m-0",
-    { "card-side": hasVerticalAspect }
-  )}
+  class={clsx("card-compact card rounded-xl bg-base-100 shadow-xl", {
+    "[@media_screen_and_(max-width:640px)]:card-side": hasVerticalAspect
+  })}
 >
   <figure>
     <img
       bind:this={img}
       alt="Shoes"
-      class={clsx("max-h-64 object-fill object-center", { "w-40": hasVerticalAspect })}
+      class={clsx("object-cover object-center", {
+        "[@media_screen_and_(max-width:640px)]:w-40 max-h-80 w-full": hasVerticalAspect
+      })}
     />
   </figure>
 

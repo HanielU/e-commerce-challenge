@@ -5,15 +5,6 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@babel/runtime@npm:^7.9.0":
-  version: 7.19.0
-  resolution: "@babel/runtime@npm:7.19.0"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: fa69c351bb05e1db3ceb9a02fdcf620c234180af68cdda02152d3561015f6d55277265d3109815992f96d910f3db709458cae4f8df1c3def66f32e0867d82294
-  languageName: node
-  linkType: hard
-
 "@cloudflare/workers-types@npm:^3.14.0":
   version: 3.14.1
   resolution: "@cloudflare/workers-types@npm:3.14.1"
@@ -408,21 +399,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trpc/client@npm:^9.27.2":
-  version: 9.27.2
-  resolution: "@trpc/client@npm:9.27.2"
-  dependencies:
-    "@babel/runtime": ^7.9.0
+"@trpc/client@npm:next":
+  version: 10.0.0-proxy-alpha.76
+  resolution: "@trpc/client@npm:10.0.0-proxy-alpha.76"
   peerDependencies:
-    "@trpc/server": 9.27.2
-  checksum: a404048151bd657fea08af3d12e7a6038271f11e777c4fbc71affa24c40a0e954f7a7df5d84ca2d0d0039b43ca0576c53d9c604b2c2ade9d6d7b0b877c4ebd43
+    "@trpc/server": 10.0.0-proxy-alpha.76
+  checksum: f7cf53eccc6927e38f3ee075f5c6660d97e1cb39b676492c13b6399357bd76c50195318ae6ff89abf716196deb6d945c583e2b1f68fa7df8b0ac9361079df0d3
   languageName: node
   linkType: hard
 
-"@trpc/server@npm:^9.27.2":
-  version: 9.27.2
-  resolution: "@trpc/server@npm:9.27.2"
-  checksum: b5658b0f5a50ac2c474ceff888df29d0c0924d09a2980b83c62adbe90be8e985737a6d3c60fa817b702b68b20252d0d132389e028af5d6f0ce53ae1e5a8704b8
+"@trpc/server@npm:next":
+  version: 10.0.0-proxy-alpha.76
+  resolution: "@trpc/server@npm:10.0.0-proxy-alpha.76"
+  checksum: 3b43f55ae3e1bc679de3d10202a747cb5a412d15e4e2987bfb19834248f4a917b7a0ac667d8acd5be44872782b35f9f90676d6b32f326f8a10d4538937260fab
   languageName: node
   linkType: hard
 
@@ -3310,13 +3299,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
-  version: 0.13.9
-  resolution: "regenerator-runtime@npm:0.13.9"
-  checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
-  languageName: node
-  linkType: hard
-
 "regexparam@npm:^2.0.0":
   version: 2.0.1
   resolution: "regexparam@npm:2.0.1"
@@ -3800,8 +3782,8 @@ __metadata:
     "@supabase/supabase-js": ^1.35.6
     "@sveltejs/adapter-auto": ^1.0.0-next.73
     "@sveltejs/kit": ^1.0.0-next.481
-    "@trpc/client": ^9.27.2
-    "@trpc/server": ^9.27.2
+    "@trpc/client": next
+    "@trpc/server": next
     "@types/animejs": ^3.1.5
     "@typescript-eslint/eslint-plugin": ^5.37.0
     "@typescript-eslint/parser": ^5.37.0

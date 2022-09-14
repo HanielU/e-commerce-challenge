@@ -20,7 +20,7 @@
   };
 </script>
 
-<div class="sticky top-0 z-50 bg-base-200">
+<div class="sticky top-0 z-50 bg-base-300">
   <div class="navbar mx-auto max-w-screen-lg">
     <div class="navbar-start">
       <div class="dropdown">

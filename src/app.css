@@ -8,9 +8,9 @@
 
 html,
 body {
-  @apply overflow-x-hidden;
+  @apply max-h-screen overflow-x-hidden;
 }
 
 #app {
-  @apply relative h-full min-h-screen w-full bg-base-200;
+  @apply relative h-full min-h-screen w-full bg-base-300;
 }

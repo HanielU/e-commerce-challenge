@@ -5,6 +5,15 @@ module.exports = {
     extend: {
       maxWidth: ({ theme }) => ({
         ...theme("width")
+      }),
+      minWidth: ({ theme }) => ({
+        ...theme("width")
+      }),
+      minHeight: ({ theme }) => ({
+        ...theme("height")
+      }),
+      maxHeight: ({ theme }) => ({
+        ...theme("height")
       })
     }
   },
