@@ -1,10 +1,13 @@
 import type { ImageStore } from "$lib/types";
+import type { Session } from "lucia-sveltekit/types";
 import { createForageStore } from "./forage-store";
 import { localStorageStore } from "./local-storage";
+import { writable } from "svelte/store";
 
 /** Cart represents an array of Product IDs */
 export const localCart = createCartStore();
 export const productsImgStore = createForageStore<ImageStore>("image", new Map([]));
+export const session = writable<Session>(null);
 
 function createCartStore() {
   const { update, subscribe } = localStorageStore<string[]>("cart", []);

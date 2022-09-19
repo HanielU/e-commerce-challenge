@@ -1,13 +1,17 @@
 <script lang="ts">
   import "../app.css";
-  import { Lucia } from "lucia-sveltekit/client";
   import { derived } from "svelte/store";
   import { fade } from "svelte/transition";
+  import { handleSilentRefresh } from "lucia-sveltekit/client";
   import { navigating } from "$app/stores";
   import { page } from "$app/stores";
+  import { session } from "$lib/stores/user";
 
-  const delayedPreloading = derived(navigating, ($_, set) => {
-    $_ === null ? set(false) : setTimeout(() => set(true), 250);
+  handleSilentRefresh();
+
+  const delayedPreloading = derived(navigating, (_, set) => {
+    set(true);
+    setTimeout(() => set(true), 250);
   });
 
   const setupNavigationLoader = (loader: HTMLDivElement) => {
@@ -39,6 +43,8 @@
       });
     })();
   };
+
+  $: session.set($page.data.session);
 </script>
 
 <svelte:head>
@@ -54,8 +60,6 @@
 {/if}
 
 <!-- Updates UI based on auth state -->
-{#key $page.data.lucia}
-  <Lucia on:error={console.log}>
-    <slot />
-  </Lucia>
+{#key $session}
+  <slot />
 {/key}

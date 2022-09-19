@@ -1,9 +1,10 @@
 <script lang="ts">
+  type T = $$Generic;
+
   type MasonryStyles = {
     gridWrapper?: string;
     gridItem?: string;
   };
-  type T = $$Generic;
 
   let items = [] as T[];
   let minWidth = "250px";
@@ -35,7 +36,7 @@
       .querySelector("img")!
       .addEventListener("load", resizeAllGridItems);
 
-    // workaround to fix the issue where the grids are given more spans than they need
+    // workaround to fix the issue where the grids are given more spans than they need on first page load
     setTimeout(resizeAllGridItems, 1000);
   }
 </script>

@@ -37,4 +37,4 @@ const trpcHandle: Handle = async ({ event, resolve }) => {
   return response;
 };
 
-export const handle = sequence(trpcHandle, auth.handleAuth);
+export const handle = sequence(trpcHandle, auth.handleHooks());

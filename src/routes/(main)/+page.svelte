@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import Products from "$lib/components/products/Products.svelte";
   import Landing from "./components/Landing.svelte";
 </script>
@@ -9,4 +10,4 @@
 
 <Landing />
 
-<Products />
+<Products products={$page.data.products} />

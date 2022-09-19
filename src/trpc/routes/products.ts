@@ -7,10 +7,11 @@ import { z } from "zod";
 export default t.router({
   all: t.procedure.query(async () => {
     return await prismaClient.product.findMany().catch(e => {
-      console.log(e.message);
+      console.log("line 10: ", e.message);
       return [];
     });
   }),
+
   img: t.procedure
     .input(
       z.object({
@@ -32,6 +33,7 @@ export default t.router({
         imgId
       ];
     }),
+
   category: t.procedure
     .input(
       z.object({
@@ -39,16 +41,19 @@ export default t.router({
       })
     )
     .query(async ({ input }) => {
-      const productsInCategory = await prismaClient.product.findMany({
-        where: {
-          categories: {
-            some: {
-              name: input.category
+      return await prismaClient.product
+        .findMany({
+          where: {
+            categories: {
+              some: {
+                name: input.category
+              }
             }
           }
-        }
-      });
-
-      return productsInCategory;
+        })
+        .catch(e => {
+          console.log("line 55:", e.message);
+          return [];
+        });
     })
 });

@@ -1,7 +1,7 @@
 import type { Actions } from "./$types";
 import { auth } from "$lib/lucia";
 import { error } from "@sveltejs/kit";
-import { parseLuciaCookies } from "$lib/lucia";
+import { setCookie } from "lucia-sveltekit";
 
 export const actions: Actions = {
   login: async ({ request, cookies }) => {
@@ -13,11 +13,9 @@ export const actions: Actions = {
     if (!email || !password) return;
 
     try {
-      const authenticateUser = await auth.authenticateUser("email", email, password);
+      const userSession = await auth.authenticateUser("email", email, password);
 
-      parseLuciaCookies(authenticateUser.cookies).forEach(({ name, value, options }) =>
-        cookies.set(name, value, options)
-      );
+      setCookie(cookies, ...userSession.cookies);
     } catch (e) {
       switch ((e as Error).message) {
         case "AUTH_INVALID_IDENTIFIER_TOKEN":
@@ -43,14 +41,12 @@ export const actions: Actions = {
     if (!email || !password || !firstname || !lastname) return;
 
     try {
-      const createUser = await auth.createUser("email", email, {
+      const userSession = await auth.createUser("email", email, {
         password,
         user_data: { email, firstname, lastname }
       });
 
-      parseLuciaCookies(createUser.cookies).forEach(({ name, value, options }) =>
-        cookies.set(name, value, options)
-      );
+      setCookie(cookies, ...userSession.cookies);
 
       return { success: true };
     } catch (e) {

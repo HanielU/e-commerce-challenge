@@ -5,7 +5,7 @@
   import type { Product } from "@prisma/client";
   import { b64toBlob } from "$lib/utils";
   import { localCart, productsImgStore } from "$lib/stores/user";
-  import { trpcClient } from "$trpc/client";
+  import { trpc } from "$trpc/client";
 
   export let product: Omit<Product, "userId" | "averageRating">;
 
@@ -33,7 +33,7 @@
     }
 
     try {
-      const [base64str, imgType, imgId] = await trpcClient().products.img.query({
+      const [base64str, imgType, imgId] = await trpc().products.img.query({
         imgPath: product.imgPath
       });
 
@@ -53,6 +53,7 @@
 
 <div
   class={clsx("card-compact card rounded-xl bg-base-100 shadow-xl", {
+    // <!-- card-side is buggy when media-queries are added -->
     "[@media_screen_and_(max-width:640px)]:card-side": hasVerticalAspect
   })}
 >

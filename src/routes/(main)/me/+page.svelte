@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { getSession } from "lucia-sveltekit/client";
-
-  const lucia = getSession();
+  import { session } from "$lib/stores/user";
 </script>
 
-<h1>{$lucia?.user.firstname} {$lucia?.user.lastname}</h1>
+<h1>{$session?.user.firstname} {$session?.user.lastname}</h1>
 <h1>
-  {$lucia?.user.email}
+  {$session?.user.email}
 </h1>
