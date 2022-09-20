@@ -2,7 +2,7 @@
   import CartIcon from "$lib/components/icons/CartIcon.svelte";
   import SearchIcon from "$lib/components/icons/SearchIcon.svelte";
   import clsx from "clsx";
-  import { goto, invalidateAll } from "$app/navigation";
+  import { goto } from "$app/navigation";
   import { localCart, session } from "$lib/stores/user";
   import { signOut } from "lucia-sveltekit/client";
 
@@ -11,8 +11,7 @@
   const signOutUser = async () => {
     loading = true;
     try {
-      await signOut();
-      invalidateAll();
+      await signOut("/");
     } finally {
       loading = false;
     }

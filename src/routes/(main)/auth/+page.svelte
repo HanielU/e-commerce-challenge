@@ -1,7 +1,6 @@
 <script lang="ts">
   import clsx from "clsx";
   import { enhance } from "$app/forms";
-  import { invalidateAll } from "$app/navigation";
 
   let loading = false;
   let error = "";
@@ -18,7 +17,7 @@
   class="form-control mx-auto mt-12 mb-10 max-w-xs gap-4"
   method="POST"
   action={mode == "login" ? "?/login" : "?/register"}
-  use:enhance={({ form }) => {
+  use:enhance={() => {
     loading = true;
 
     return async ({ result }) => {
@@ -26,8 +25,7 @@
       if (result.type === "error") {
         error = result.error.message;
       } else if (result.type === "success") {
-        await invalidateAll();
-        form.reset();
+        window.location.href = "/";
       }
     };
   }}

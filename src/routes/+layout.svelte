@@ -2,12 +2,9 @@
   import "../app.css";
   import { derived } from "svelte/store";
   import { fade } from "svelte/transition";
-  import { handleSilentRefresh } from "lucia-sveltekit/client";
   import { navigating } from "$app/stores";
-  import { page } from "$app/stores";
   import { session } from "$lib/stores/user";
-
-  handleSilentRefresh();
+  import { getSession } from "lucia-sveltekit/client";
 
   const delayedPreloading = derived(navigating, (_, set) => {
     set(true);
@@ -44,7 +41,8 @@
     })();
   };
 
-  $: session.set($page.data.session);
+  const lucia = getSession();
+  session.set($lucia);
 </script>
 
 <svelte:head>
@@ -59,7 +57,4 @@
   />
 {/if}
 
-<!-- Updates UI based on auth state -->
-{#key $session}
-  <slot />
-{/key}
+<slot />
