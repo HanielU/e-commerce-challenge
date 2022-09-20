@@ -1,8 +1,8 @@
 import { auth } from "$lib/lucia";
 import { redirect } from "@sveltejs/kit";
 
-export const load = auth.handleServerLoad(async ({ getSession, url }) => {
-  const session = await getSession();
+export const load = auth.handleServerSession(async ({ request, url }) => {
+  const session = await auth.validateRequestByCookie(request);
 
   if (session) {
     if (isProtected(url.pathname, ["/auth"])) throw redirect(302, "/");
