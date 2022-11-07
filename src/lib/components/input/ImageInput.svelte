@@ -20,6 +20,7 @@
     imgSize = returnFileSize(currentImage.size);
     const [num, suffix] = imgSize.split(" ");
 
+    // check if image size is too large
     if (+num >= 5 && suffix === "MB") {
       showAlert = true;
       image = undefined as unknown as File;

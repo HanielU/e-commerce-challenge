@@ -18,11 +18,11 @@
   };
 </script>
 
-<div class="sticky top-0 z-50 bg-base-300">
+<div class="sticky top-0 z-50 bg-base-300" data-sveltekit-prefetch>
   <div class="navbar mx-auto max-w-screen-lg">
     <div class="navbar-start">
       <div class="dropdown">
-        <div tabindex="0" class="btn btn-ghost btn-circle">
+        <div tabindex="0" class="btn-ghost btn-circle btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -63,25 +63,25 @@
     </div>
 
     <div class="navbar-center">
-      <a href="/" class="btn btn-ghost text-xl normal-case">
+      <a href="/" class="btn-ghost btn text-xl normal-case">
         Belibe <div class="my-auto ml-1 h-1 w-1 rounded-full bg-base-content" />
       </a>
     </div>
 
     <div class="navbar-end">
-      <button class="btn btn-ghost btn-circle">
+      <button class="btn-ghost btn-circle btn">
         <SearchIcon class="h-5 w-5" />
       </button>
 
       <button
-        class="btn tooltip tooltip-left btn-ghost btn-circle tooltip-primary"
+        class="btn-ghost tooltip tooltip-left tooltip-primary btn-circle btn"
         data-tip="{$localCart} {$localCart.length == 1 ? 'item' : 'items'} in cart"
         on:click={() => !!$session && goto("/cart")}
       >
         <div class="indicator">
           <CartIcon class="h-5 w-5 fill-base-content" />
 
-          <span class="badge indicator-item badge-primary badge-xs">
+          <span class="badge-primary badge badge-xs indicator-item">
             {$localCart.length}
           </span>
         </div>

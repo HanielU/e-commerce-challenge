@@ -10,6 +10,7 @@
   minWidth="300px"
   items={products}
   let:prop={product}
+  fallbackMsg="No Products Available"
 >
   <ProductCard {product} />
 </MasonryGrid>

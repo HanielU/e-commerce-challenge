@@ -78,10 +78,10 @@
 
     <!-- card actions -->
     <div class="card-actions justify-start">
-      <button class="btn btn-primary flex-1 rounded-md">Buy Now</button>
+      <button class="btn-primary btn flex-1 rounded-md">Buy Now</button>
 
       <button
-        class="btn tooltip tooltip-left rounded-md bg-neutral text-white"
+        class="tooltip tooltip-left btn rounded-md bg-neutral text-white"
         data-tip="Add to cart"
         on:click={() => localCart.add(product.id)}
       >

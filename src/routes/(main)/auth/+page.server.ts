@@ -1,33 +1,28 @@
 import type { Actions } from "./$types";
-import { auth } from "$lib/lucia";
-import { error } from "@sveltejs/kit";
-import { setCookie } from "lucia-sveltekit";
+import { auth } from "$lib/lucia.server";
+import { error, invalid, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
-  login: async ({ request, cookies }) => {
+  login: async ({ request, locals }) => {
     const data = await request.formData();
     const [email, password] = ([data.get("email"), data.get("password")] as string[]).map(
       value => value.trim()
     );
 
-    if (!email || !password) return;
+    if (!email || !password) return invalid(400);
 
     try {
-      const userSession = await auth.authenticateUser("email", email, password);
-
-      setCookie(cookies, ...userSession.cookies);
+      const user = await auth.authenticateUser("email", email, password);
+      const session = await auth.createSession(user.userId);
+      locals.setSession(session);
     } catch (e) {
-      switch ((e as Error).message) {
-        case "AUTH_INVALID_IDENTIFIER_TOKEN":
-        case "AUTH_INVALID_PASSWORD":
-          throw error(400, "Incorrect email or password");
-      }
-
-      throw error(500, "Unknow error occured");
+      return invalid(400);
     }
+
+    throw redirect(302, "/");
   },
 
-  register: async ({ request, cookies }) => {
+  register: async ({ request, locals }) => {
     const data = await request.formData();
     const [email, password, firstname, lastname] = (
       [
@@ -38,25 +33,21 @@ export const actions: Actions = {
       ] as string[]
     ).map(value => value.trim());
 
-    if (!email || !password || !firstname || !lastname) return;
+    if (!email || !password || !firstname || !lastname) return invalid(400);
 
     try {
-      const userSession = await auth.createUser("email", email, {
+      const user = await auth.createUser("email", email, {
         password,
-        user_data: { email, firstname, lastname }
+        attributes: { email, firstname, lastname }
       });
 
-      setCookie(cookies, ...userSession.cookies);
-
-      return { success: true };
+      const session = await auth.createSession(user.userId);
+      locals.setSession(session);
     } catch (e) {
-      switch ((e as Error).message) {
-        case "AUTH_DUPLICATE_IDENTIFIER_TOKEN":
-        case "AUTH_DUPLICATE_USER_DATA":
-          throw error(400, "Email already in use");
-      }
-
-      throw error(500, "Unknow error occured");
+      // email | identifier already in use
+      return invalid(400);
     }
+
+    throw redirect(302, "/");
   }
 };

@@ -45,7 +45,7 @@
       <p class="label">First Name</p>
 
       <input
-        class="input input-bordered w-full"
+        class="input-bordered input w-full"
         type="text"
         name="firstname"
         autocomplete="false"
@@ -57,7 +57,7 @@
       <p class="label">Last Name</p>
 
       <input
-        class="input input-bordered w-full"
+        class="input-bordered input w-full"
         type="text"
         name="lastname"
         autocomplete="false"
@@ -70,7 +70,7 @@
     <p class="label">Email</p>
 
     <input
-      class="input input-bordered w-full"
+      class="input-bordered input w-full"
       type="email"
       name="email"
       autocomplete="false"
@@ -82,7 +82,7 @@
     <p class="label">Password</p>
 
     <input
-      class="input input-bordered w-full"
+      class="input-bordered input w-full"
       type="password"
       name="password"
       autocomplete="false"

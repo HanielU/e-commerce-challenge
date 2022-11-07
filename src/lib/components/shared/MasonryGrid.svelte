@@ -6,14 +6,20 @@
     gridItem?: string;
   };
 
+  /** An Array of display Data to loop over */
   let items = [] as T[];
+
+  /** Message to show when the list of Items is empty */
+  let fallbackMsg = "";
+
+  /** The minimum width for each element in the masonry grid */
   let minWidth = "250px";
   let className: MasonryStyles = {
     gridWrapper: "",
     gridItem: ""
   };
 
-  export { items, className as class, minWidth };
+  export { items, className as class, minWidth, fallbackMsg };
 
   function resizeGridItem(gridItem: HTMLDivElement) {
     const grid = gridItem.parentElement!;
@@ -51,5 +57,7 @@
     <div class="grid-item {className.gridItem}" use:resizeGridItemAfterImgLoad>
       <slot prop={item} />
     </div>
+  {:else}
+    <h1>{fallbackMsg}</h1>
   {/each}
 </div>
