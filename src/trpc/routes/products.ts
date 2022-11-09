@@ -19,9 +19,9 @@ export default t.router({
       })
     )
     .query(async ({ input }) => {
-      const [bucket, imgId] = input.imgPath.split("/");
+      const imgId = input.imgPath;
       const { data, error } = await supabase.storage
-        .from(bucket)
+        .from("products")
         .download(imgId);
 
       if (error || !data) throw error; // if no data is returned, that means there's an error

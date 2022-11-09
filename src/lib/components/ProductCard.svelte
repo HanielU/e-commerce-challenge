@@ -23,7 +23,7 @@
   ) {
     if (prodsImgStore === undefined || !$productsImgStore || !img) return;
 
-    const [, imgName] = product.imgPath.split("/");
+    const imgName = product.imgPath;
 
     img.onload = () => {
       const x = img.naturalWidth;
@@ -38,6 +38,7 @@
     }
 
     try {
+      console.log(product.imgPath);
       const [base64str, imgType, imgId] = await trpc().products.img.query({
         imgPath: product.imgPath,
       });
