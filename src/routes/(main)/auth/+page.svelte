@@ -1,6 +1,7 @@
 <script lang="ts">
   import clsx from "clsx";
   import { enhance } from "$app/forms";
+  import { goto } from "$app/navigation";
 
   let loading = false;
   let error = "";
@@ -24,8 +25,8 @@
       loading = false;
       if (result.type === "error") {
         error = result.error.message;
-      } else if (result.type === "success") {
-        window.location.href = "/";
+      } else if (result.type == "redirect") {
+        goto(result.location);
       }
     };
   }}
