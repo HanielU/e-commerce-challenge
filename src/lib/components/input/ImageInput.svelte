@@ -46,14 +46,14 @@
   class={clsx(
     "input relative flex h-64 cursor-pointer items-center justify-center hover:brightness-150 group",
     {
-      "hover:after:!opacity-60 hover:brightness-100 p-0": !!image
+      "hover:after:!opacity-60 hover:brightness-100 p-0": !!image,
     },
     className
   )}
 >
   <h1
     class={clsx("text-primary-content text-2xl z-10 transition-opacity", {
-      "absolute opacity-0 group-hover:opacity-100": !!image
+      "absolute opacity-0 group-hover:opacity-100": !!image,
     })}
   >
     {image ? "Click to update Image" : "Click To Upload Image"}
@@ -61,7 +61,11 @@
 
   {#if image}
     <div class="relative h-full w-full">
-      <img src={imgSrc} alt="" class="h-full w-full object-cover object-center" />
+      <img
+        src={imgSrc}
+        alt=""
+        class="h-full w-full object-cover object-center"
+      />
     </div>
   {/if}
   <input

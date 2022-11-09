@@ -5,8 +5,10 @@
   import Textarea from "$lib/components/input/Textarea.svelte";
   import clsx from "clsx";
   import type { ActionResult } from "@sveltejs/kit";
+  import { getUser } from "@lucia-auth/sveltekit/client";
   import { goto } from "$app/navigation";
-  import { session } from "$lib/stores/user";
+
+  const user = getUser();
 
   let image: File;
   let loading = false;
@@ -24,11 +26,11 @@
       maxWidth: 1080,
       async success(compressedImg) {
         data.append("image", compressedImg);
-        data.append("email", $session!.user.email);
+        data.append("email", $user!.email);
 
         const response = await fetch(formAction, {
           method: "POST",
-          body: data
+          body: data,
         });
 
         const result = (await response.json()) as ActionResult;
@@ -40,7 +42,7 @@
         } else if (result.type == "redirect") {
           goto(result.location);
         }
-      }
+      },
     });
   }
 </script>
@@ -80,6 +82,8 @@
     </label>
     <ImageInput class="mb-4" bind:image />
 
-    <button class={clsx("btn btn-primary btn-block", { loading })}> Add Product </button>
+    <button class={clsx("btn btn-primary btn-block", { loading })}>
+      Add Product
+    </button>
   </form>
 </div>

@@ -4,21 +4,21 @@ module.exports = {
   theme: {
     extend: {
       maxWidth: ({ theme }) => ({
-        ...theme("width")
+        ...theme("width"),
       }),
       minWidth: ({ theme }) => ({
-        ...theme("width")
+        ...theme("width"),
       }),
       minHeight: ({ theme }) => ({
-        ...theme("height")
+        ...theme("height"),
       }),
       maxHeight: ({ theme }) => ({
-        ...theme("height")
-      })
-    }
+        ...theme("height"),
+      }),
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["business"]
-  }
+    themes: ["business"],
+  },
 };

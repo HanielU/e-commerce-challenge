@@ -16,7 +16,7 @@
   let minWidth = "250px";
   let className: MasonryStyles = {
     gridWrapper: "",
-    gridItem: ""
+    gridItem: "",
   };
 
   export { items, className as class, minWidth, fallbackMsg };
@@ -27,13 +27,15 @@
     const rowGap = parseInt(getComputedStyle(grid).rowGap);
     const gridItemContent = gridItem.children[0]!;
     const rowSpan = Math.ceil(
-      (gridItemContent.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)
+      (gridItemContent.getBoundingClientRect().height + rowGap) /
+        (rowHeight + rowGap)
     );
     gridItem.style.gridRowEnd = "span " + rowSpan;
   }
 
   function resizeAllGridItems() {
-    const allGridItems = document.querySelectorAll<HTMLDivElement>(".grid-item");
+    const allGridItems =
+      document.querySelectorAll<HTMLDivElement>(".grid-item");
     allGridItems.forEach(item => resizeGridItem(item));
   }
 

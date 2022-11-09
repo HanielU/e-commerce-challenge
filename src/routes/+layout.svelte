@@ -4,11 +4,6 @@
   import { derived } from "svelte/store";
   import { fade } from "svelte/transition";
   import { navigating } from "$app/stores";
-  import { session } from "$lib/stores/user";
-  import { getSession } from "lucia-sveltekit/client";
-
-  const lucia = getSession();
-  session.set($lucia);
 
   const delayedPreloading = derived(navigating, (_, set) => {
     set(true);
@@ -36,7 +31,7 @@
         anim.play();
       },
       duration: 2000,
-      easing: "linear"
+      easing: "linear",
     });
   };
 </script>

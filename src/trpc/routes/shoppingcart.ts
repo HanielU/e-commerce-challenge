@@ -1,4 +1,4 @@
-import { prismaClient } from "$lib/db";
+import { prismaClient } from "$lib/server/prisma";
 import { t } from "$trpc/app-router";
 import { z } from "zod";
 

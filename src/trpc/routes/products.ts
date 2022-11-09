@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { t } from "$trpc/app-router";
-import { prismaClient } from "$lib/db";
-import { supabase } from "$lib/supaclient";
+import { prismaClient } from "$lib/server/prisma";
+import { supabase } from "$lib/server/supaclient";
 import { z } from "zod";
 
 export default t.router({

@@ -1,13 +1,13 @@
 import type { Actions } from "./$types";
-import { auth } from "$lib/lucia.server";
+import { auth } from "$lib/server/lucia";
 import { error, invalid, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
   login: async ({ request, locals }) => {
     const data = await request.formData();
-    const [email, password] = ([data.get("email"), data.get("password")] as string[]).map(
-      value => value.trim()
-    );
+    const [email, password] = (
+      [data.get("email"), data.get("password")] as string[]
+    ).map(value => value.trim());
 
     if (!email || !password) return invalid(400);
 
@@ -16,7 +16,7 @@ export const actions: Actions = {
       const session = await auth.createSession(user.userId);
       locals.setSession(session);
     } catch (e) {
-      return invalid(400);
+      throw error(401, "Something's wrong with your email/password");
     }
 
     throw redirect(302, "/");
@@ -29,7 +29,7 @@ export const actions: Actions = {
         data.get("email"),
         data.get("password"),
         data.get("firstname"),
-        data.get("lastname")
+        data.get("lastname"),
       ] as string[]
     ).map(value => value.trim());
 
@@ -38,16 +38,18 @@ export const actions: Actions = {
     try {
       const user = await auth.createUser("email", email, {
         password,
-        attributes: { email, firstname, lastname }
+        attributes: { email, firstname, lastname },
       });
+      console.log({ user });
 
       const session = await auth.createSession(user.userId);
       locals.setSession(session);
     } catch (e) {
       // email | identifier already in use
-      return invalid(400);
+      console.log((<Error>e).message);
+      // throw error(401, (<Error>e).message);
     }
 
     throw redirect(302, "/");
-  }
+  },
 };

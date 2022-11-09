@@ -1,17 +1,20 @@
 import type { LayoutServerLoad } from "./$types";
-import { auth } from "$lib/lucia";
 import { redirect } from "@sveltejs/kit";
 
-export const load: LayoutServerLoad = async ({ request, url }) => {
-  const session = await auth.validateRequestByCookie(request).catch(() => null);
+export const load: LayoutServerLoad = async ({ locals, url }) => {
+  const { session, user } = await locals.getSessionUser();
 
   if (session) {
-    if (isProtected(url.pathname, ["/auth"])) throw redirect(302, "/");
+    if (isProtected(["/auth"], url.pathname)) throw redirect(302, "/");
+    return {
+      user,
+    };
   } else {
-    if (isProtected(url.pathname, ["/add", "/me"])) throw redirect(302, "/auth");
+    if (isProtected(["/add", "/me"], url.pathname))
+      throw redirect(302, "/auth");
   }
 };
 
-function isProtected(path: string, protectedPaths: string[]) {
-  return protectedPaths.some(value => value === path);
+function isProtected(protectedPaths: string[], currentPath: string) {
+  return protectedPaths.some(value => value === currentPath);
 }

@@ -1,4 +1,9 @@
-import type { StartStopNotifier, Unsubscriber, Updater, Writable } from "svelte/store";
+import type {
+  StartStopNotifier,
+  Unsubscriber,
+  Updater,
+  Writable,
+} from "svelte/store";
 import { writable } from "svelte/store";
 
 const client = typeof window !== "undefined";
@@ -11,7 +16,7 @@ export function localStorageStore<T>(
   const {
     set: setStore,
     update: updateStore,
-    subscribe
+    subscribe,
   } = writable(initial, set => {
     if (!client) return;
 

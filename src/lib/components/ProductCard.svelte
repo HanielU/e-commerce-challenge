@@ -13,9 +13,14 @@
   let hasVerticalAspect = false; // used to indicate if an image has a vertical aspect ratio
 
   // wait for localforage-store to initialise & img element to exist
-  $: main($productsImgStore, img).catch((err: Error) => console.log(err.message));
+  $: main($productsImgStore, img).catch((err: Error) =>
+    console.log(err.message)
+  );
 
-  async function main(prodsImgStore: ImageStore | undefined, img: HTMLImageElement) {
+  async function main(
+    prodsImgStore: ImageStore | undefined,
+    img: HTMLImageElement
+  ) {
     if (prodsImgStore === undefined || !$productsImgStore || !img) return;
 
     const [, imgName] = product.imgPath.split("/");
@@ -34,7 +39,7 @@
 
     try {
       const [base64str, imgType, imgId] = await trpc().products.img.query({
-        imgPath: product.imgPath
+        imgPath: product.imgPath,
       });
 
       if (!base64str || !imgType || !imgId) return;
@@ -54,7 +59,7 @@
 <div
   class={clsx("card-compact card rounded-xl bg-base-100 shadow-xl", {
     // <!-- card-side is buggy when media-queries are added -->
-    "[@media_screen_and_(max-width:640px)]:card-side": hasVerticalAspect
+    "[@media_screen_and_(max-width:640px)]:card-side": hasVerticalAspect,
   })}
 >
   <figure>
@@ -62,7 +67,8 @@
       bind:this={img}
       alt="Shoes"
       class={clsx("object-cover object-center", {
-        "[@media_screen_and_(max-width:640px)]:w-40 max-h-80 w-full": hasVerticalAspect
+        "[@media_screen_and_(max-width:640px)]:w-40 max-h-80 w-full":
+          hasVerticalAspect,
       })}
     />
   </figure>

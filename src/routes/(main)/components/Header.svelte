@@ -2,16 +2,20 @@
   import CartIcon from "$lib/components/icons/CartIcon.svelte";
   import SearchIcon from "$lib/components/icons/SearchIcon.svelte";
   import clsx from "clsx";
-  import { goto } from "$app/navigation";
-  import { localCart, session } from "$lib/stores/user";
-  import { signOut } from "lucia-sveltekit/client";
+  import type { ClientUser } from "@lucia-auth/sveltekit/client/user";
+  import type { Readable } from "svelte/store";
+  import { goto, invalidateAll } from "$app/navigation";
+  import { localCart } from "$lib/stores/user";
+  import { signOut } from "@lucia-auth/sveltekit/client";
 
+  export let user: ClientUser;
   let loading = false;
 
   const signOutUser = async () => {
     loading = true;
     try {
-      await signOut("/");
+      await signOut();
+      invalidateAll();
     } finally {
       loading = false;
     }
@@ -49,14 +53,14 @@
           <button
             class={clsx("btn btn-primary btn-sm mt-1", {
               loading,
-              "btn-accent": !!$session
+              "btn-accent": !!user,
             })}
             on:click={() => {
-              if ($session) return signOutUser();
+              if (user) return signOutUser();
               goto("/auth");
             }}
           >
-            {$session ? "Logout" : "Login"}
+            {user ? "Logout" : "Login"}
           </button>
         </ul>
       </div>
@@ -75,8 +79,10 @@
 
       <button
         class="btn-ghost tooltip tooltip-left tooltip-primary btn-circle btn"
-        data-tip="{$localCart} {$localCart.length == 1 ? 'item' : 'items'} in cart"
-        on:click={() => !!$session && goto("/cart")}
+        data-tip="{$localCart} {$localCart.length == 1
+          ? 'item'
+          : 'items'} in cart"
+        on:click={() => !!user && goto("/cart")}
       >
         <div class="indicator">
           <CartIcon class="h-5 w-5 fill-base-content" />

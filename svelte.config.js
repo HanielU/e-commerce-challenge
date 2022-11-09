@@ -1,7 +1,5 @@
 import adapter from "@sveltejs/adapter-auto";
 import preprocess from "svelte-preprocess";
-import dotenv from "dotenv";
-dotenv.config();
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -12,9 +10,10 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
-      $trpc: "src/trpc/"
-    }
-  }
+      $trpc: "src/trpc/",
+      "trpc-sveltekit": "src/lib/server/trpc-sveltekit/",
+    },
+  },
 
   // svelte inspector
   /* vitePlugin: {

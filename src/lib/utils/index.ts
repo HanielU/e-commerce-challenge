@@ -11,7 +11,7 @@ export function setInputFilter(
     "mouseup",
     "select",
     "contextmenu",
-    "drop"
+    "drop",
   ].forEach(function (event) {
     textbox.addEventListener(
       event,
@@ -28,8 +28,14 @@ export function setInputFilter(
           this.oldSelectionEnd = this.selectionEnd;
         } else if (Object.prototype.hasOwnProperty.call(this, "oldValue")) {
           this.value = this.oldValue;
-          if (this.oldSelectionStart !== null && this.oldSelectionEnd !== null) {
-            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+          if (
+            this.oldSelectionStart !== null &&
+            this.oldSelectionEnd !== null
+          ) {
+            this.setSelectionRange(
+              this.oldSelectionStart,
+              this.oldSelectionEnd
+            );
           }
         } else {
           this.value = "";
@@ -46,7 +52,11 @@ export const numbersOnly = (input: HTMLInputElement) =>
 export const waitFor = (duration = 2000) =>
   new Promise(resolve => setTimeout(resolve, duration));
 
-export const b64toBlob = (b64Data: string, contentType = "", sliceSize = 512) => {
+export const b64toBlob = (
+  b64Data: string,
+  contentType = "",
+  sliceSize = 512
+) => {
   const byteCharacters = window.atob(b64Data);
   const byteArrays = [];
 

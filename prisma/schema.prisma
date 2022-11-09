@@ -10,21 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model RefreshToken {
-  id            Int    @id @unique @default(autoincrement())
-  refresh_token String @unique @db.VarChar(1000)
-  user          User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  user_id       String
+model Session {
+  id           String @id @unique
+  user_id      String
+  expires      BigInt
+  idle_expires BigInt
+  user         User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
-  @@map("refresh_token")
+  @@map("session")
 }
 
 model User {
-  id               String         @id @unique
-  identifier_token String         @unique
-  hashed_password  String?
-  RefreshToken     RefreshToken[]
+  id              String    @id @unique @default(cuid())
+  provider_id     String    @unique
+  hashed_password String?
+  session         Session[]
 
   email     String    @unique
   firstname String

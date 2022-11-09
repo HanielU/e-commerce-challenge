@@ -1,5 +1,5 @@
-import { prismaClient } from "$lib/db";
-import { supabase } from "$lib/supaclient";
+import { prismaClient } from "$lib/server/prisma";
+import { supabase } from "$lib/server/supaclient";
 import { error, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 
@@ -11,7 +11,7 @@ export const actions: Actions = {
       "p-price",
       "p-qty",
       "p-desc",
-      "image"
+      "image",
     ].map(v => form.get(v)) as [string, string, string, string, File];
 
     console.log({ image, name });
@@ -22,7 +22,7 @@ export const actions: Actions = {
         .upload(`${crypto.randomUUID()}`, await image.arrayBuffer(), {
           cacheControl: "3600",
           upsert: false,
-          contentType: image.type
+          contentType: image.type,
         });
 
       if (supaError) throw supaError;
@@ -34,18 +34,18 @@ export const actions: Actions = {
           price: +price,
           quantity: +qty,
           description,
-          imgPath: data.Key,
+          imgPath: data.path,
           createdBy: {
             connect: {
-              email: form.get("email") as string
-            }
-          }
-        }
+              email: form.get("email") as string,
+            },
+          },
+        },
       });
     } catch (e) {
       throw error(500, (<Error>e).message);
     }
 
     throw redirect(301, "/");
-  }
+  },
 };

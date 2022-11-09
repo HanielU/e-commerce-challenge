@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { session } from "$lib/stores/user";
+  import { getUser } from "@lucia-auth/sveltekit/client";
+
+  const user = getUser();
 </script>
 
-<h1>{$session?.user.firstname} {$session?.user.lastname}</h1>
+<h1>{$user?.firstname} {$user?.lastname}</h1>
 <h1>
-  {$session?.user.email}
+  {$user?.email}
 </h1>

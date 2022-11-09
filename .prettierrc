@@ -3,8 +3,8 @@
   "tabWidth": 2,
   "arrowParens": "avoid",
   "singleQuote": false,
-  "trailingComma": "none",
-  "printWidth": 90,
+  "trailingComma": "es5",
+  "printWidth": 80,
   "pluginSearchDirs": ["."],
   "overrides": [
     {
