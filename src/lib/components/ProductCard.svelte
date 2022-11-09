@@ -32,7 +32,7 @@
     };
 
     if ($productsImgStore.has(imgName)) {
-      const imgBlob = $productsImgStore.get(imgName) as Blob;
+      const imgBlob = $productsImgStore.get(imgName)!;
       img.src = URL.createObjectURL(imgBlob);
       return;
     }

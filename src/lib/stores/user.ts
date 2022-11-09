@@ -6,7 +6,7 @@ import { localStorageStore } from "./local-storage";
 export const localCart = createCartStore();
 export const productsImgStore = createForageStore<ImageStore>(
   "image",
-  new Map([])
+  new Map()
 );
 
 function createCartStore() {
