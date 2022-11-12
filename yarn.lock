@@ -1117,9 +1117,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^2.38.1":
-  version: 2.38.1
-  resolution: "daisyui@npm:2.38.1"
+"daisyui@npm:^2.39.0":
+  version: 2.39.0
+  resolution: "daisyui@npm:2.39.0"
   dependencies:
     color: ^4.2
     css-selector-tokenizer: ^0.8.0
@@ -1128,7 +1128,7 @@ __metadata:
   peerDependencies:
     autoprefixer: ^10.0.2
     postcss: ^8.1.6
-  checksum: 0f36fa53ae8b3903c73b73dd39070da8c09bf6ea21a198d6c52a401fac18f276b0c062c32c4670eb7a1b63cc3753ee9489469adfbab25cb73f63191dc11ce2fe
+  checksum: 8765ec6e42c34eea189c3f1a8b34130bc228dba72283feadb5f64c3dc3b38b7229459e94c45f8d269172453aa47c2b8b79cddb442cd8cb5b53b5afa90af2db6f
   languageName: node
   linkType: hard
 
@@ -3599,7 +3599,7 @@ __metadata:
     autoprefixer: ^10.4.13
     clsx: ^1.2.1
     compressorjs: ^1.1.1
-    daisyui: ^2.38.1
+    daisyui: ^2.39.0
     eslint: ^8.27.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-svelte3: ^4.0.0
@@ -3613,7 +3613,7 @@ __metadata:
     svelte: ^3.50.1
     svelte-check: ^2.9.2
     svelte-preprocess: ^4.10.7
-    tailwindcss: ^3.2.2
+    tailwindcss: ^3.2.3
     tslib: ^2.4.1
     typescript: ^4.8.4
     vite: ^3.2.3
@@ -3656,9 +3656,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "tailwindcss@npm:3.2.2"
+"tailwindcss@npm:^3.2.3":
+  version: 3.2.3
+  resolution: "tailwindcss@npm:3.2.3"
   dependencies:
     arg: ^5.0.2
     chokidar: ^3.5.3
@@ -3688,7 +3688,7 @@ __metadata:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 4f29f9d7bed74f70cd90281c4068e20903cbe79949987aae7c6cf197df9c852caa0d9884c19547f55eac09c2468dfe30c25bc8e75482e2654e24ee40d74078f9
+  checksum: 5a31815c69d3ecfb6ed4882942d6e0dc3b79e5dbbadd758ccebe99d66d403b29d80b7b73dec0a81ee21ada4ec8e9d467dd1bc14b559726c5a19425030f29aea9
   languageName: node
   linkType: hard
 

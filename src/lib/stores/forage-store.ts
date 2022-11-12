@@ -2,10 +2,12 @@ import localforage from "localforage";
 import { browser } from "$app/environment";
 import { writable, type Writable } from "svelte/store";
 
+type SemiWritable<T> = Omit<Writable<T>, "update">;
+
 export function createForageStore<T>(
   key: string,
   initial: T
-): Omit<Writable<T | undefined>, "update"> {
+): SemiWritable<T | undefined> {
   const { subscribe, set } = writable<T | undefined>(undefined, () => {
     if (!browser) return;
 

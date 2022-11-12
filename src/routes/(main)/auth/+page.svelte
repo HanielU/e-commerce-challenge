@@ -99,6 +99,7 @@
     type="submit"
     class={clsx("btn rounded-md", { loading })}
     disabled={loading}
-    >{loading ? "Loading" : mode == "login" ? "Login" : "Signup"}
+  >
+    {loading ? "Loading" : mode == "login" ? "Login" : "Signup"}
   </button>
 </form>

@@ -8,14 +8,20 @@ import pathlib
 folderPath = "."
 
 # The ignoreFolders contains folder name that you might want to ignore
-ignoreFolders = ['.vscode', 'migrations', 'misc', ".yarn", 'build', '.git', 'svg', 'icons', 'node_modules', ".svelte-kit", "static"]
+ignoreFolders = ['.vscode', 'migrations', 'misc', ".yarn", 'build', 
+'.git', 'svg', 'icons', 'node_modules', ".svelte-kit", "static"]
 
 # The ignoreFoldersInput is your input
 # ignoreFoldersInput = input(' Provide a list a folders you don\'t wish to count from : ')
 # ignoreFolders.extend(ignoreFoldersInput.split(','))
 
 # The ignoreFiles contains folder name that you might want to ignore
-ignoreFiles = ['.env', '.yarnrc.yml', '.eslintignore', '.prettierignore', 'app.d.ts', "todo.txt", "_path.txt", ".eslint.cjs", ".prettierrc", 'count.py', '.gitignore', 'package-lock.json', 'yarn.lock', 'package.json', 'tsconfig.json', '.npmrc', 'global.d.ts', 'svelte.config.js', 'tailwind.config.cjs', 'postcss.config.cjs', 'vite.config.ts', 'stats.html', '.eslintcache', 'README.md', 'TODO.md', '.eslintrc.cjs', '.deepsource.toml']
+ignoreFiles = ['.env', 'Goals.md', '.yarnrc.yml', '.eslintignore', '.prettierignore', 
+'app.d.ts', "todo.txt", "_path.txt", ".eslint.cjs", ".prettierrc", 'count.py', 
+'.gitignore', 'package-lock.json', 'yarn.lock', 'package.json', 'tsconfig.json', 
+'.npmrc', 'global.d.ts', 'svelte.config.js', 'tailwind.config.cjs', 'postcss.config.cjs', 
+'vite.config.ts', 'stats.html', '.eslintcache', 'README.md', 'TODO.md', '.eslintrc.cjs', 
+'.deepsource.toml']
 
 # # The ignoreFilesInput is your input
 # ignoreFilesInput = input(' Provide a list a files you don\'t wish to count : ')
