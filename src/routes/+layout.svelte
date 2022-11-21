@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../app.css";
+  import MainLayout from "./components/layouts/MainLayout.svelte";
   import anime from "animejs";
   import { derived } from "svelte/store";
   import { fade } from "svelte/transition";
@@ -40,7 +41,9 @@
   <meta name="theme-color" content="#1a1a1a" />
 </svelte:head>
 
-<slot />
+<MainLayout>
+  <slot />
+</MainLayout>
 
 {#if $navigating && $delayedPreloading}
   <div
